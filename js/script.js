@@ -118,6 +118,7 @@ async function displayAlbums() {
                 let folder = encodeURIComponent(e.currentTarget.dataset.folder);
                 songs = await getSongs(folder);
                 playMusic(songs[0]);
+                play.src = "img/play.svg";
             });
         });
 
