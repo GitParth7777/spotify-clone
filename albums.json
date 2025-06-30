@@ -1,11 +1,11 @@
 [
   { "folder": "parth" },
   { "folder": "og" },
-  { "folder": "Love songs" },
-  { "folder": "Funky" },
-  { "folder": "Diljit" },
-  { "folder": "Dark" },
-  { "folder": "Chill Mode" },
-  { "folder": "Bright" },
-  { "folder": "Angry" }
+  { "folder": "love-songs" },
+  { "folder": "funky" },
+  { "folder": "diljit" },
+  { "folder": "dark" },
+  { "folder": "chill-mode" },
+  { "folder": "bright" },
+  { "folder": "angry" }
 ]
