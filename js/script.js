@@ -6,7 +6,7 @@ let currFolder;
 
 async function getSongs(folder) {
     currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
+    let a = await fetch(`./songs/${folder}/`);
     let response = await a.text();
     let div = document.createElement("div");
     div.innerHTML = response;
@@ -117,7 +117,7 @@ async function displayAlbums() {
 
                             </svg>
                         </div>
-                        <img src="/songs/${folder}/cover.jpg" alt="">
+                        <img src="./songs/${folder}/cover.jpg" alt="">
                         <h4>${response.title}</h4>
                         <p>${response.description}</p>
                     </div>`
@@ -140,7 +140,7 @@ async function displayAlbums() {
 
 async function main() {
     //get the list of songs
-    await getSongs("songs/parth")
+    await getSongs("./songs/parth")
 
     playMusic(songs[0], true)
     //show all the songs in the playlist
