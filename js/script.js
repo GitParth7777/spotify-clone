@@ -1,5 +1,6 @@
 
 let currentSong = new Audio();
+let currentIndex = 0;
 
 let songs;
 let currFolder;
@@ -56,22 +57,26 @@ function formatTime(seconds) {
 }
 
 const playMusic = (track, pause = false) => {
-    let audio = new Audio("/songs/" + track)
-
-    currentSong.src = `songs/${currFolder}/` + track
-    if (!pause) {
-        currentSong.play()
+    let index = songs.findIndex(song => decodeURIComponent(song) === decodeURIComponent(track));
+    if (index !== -1) {
+        currentIndex = index;
     }
 
-    play.src = "img/play.svg"
+    currentSong.src = `songs/${currFolder}/` + track;
 
-    document.querySelector(".songinfo").innerHTML = decodeURI(track)
+    if (!pause) {
+        currentSong.play();
+    }
+
+    play.src = "img/play.svg";
+    document.querySelector(".songinfo").innerHTML = decodeURI(track);
+
     currentSong.addEventListener("loadedmetadata", () => {
         document.querySelector(".songtime").innerHTML =
             `${formatTime(currentSong.currentTime)} / ${formatTime(currentSong.duration)}`;
     });
+};
 
-}
 
 
 async function displayAlbums() {
@@ -181,25 +186,31 @@ async function main() {
     })
 
     //add event listener to previous button
-    document.querySelector("#previous").addEventListener("click", () => {
-    let currentFile = decodeURIComponent(currentSong.src.split("/").pop().trim());
-    let index = songs.findIndex(song => decodeURIComponent(song.trim()) === currentFile);
-
-    if (index > 0) {
-        playMusic(songs[index - 1]);
+   document.querySelector("#previous").addEventListener("click", () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        playMusic(songs[currentIndex]);
         play.src = "img/pause.svg";
     }
 });
 
 
+
     //add event listener to next button
    document.querySelector("#next").addEventListener("click", () => {
-    let currentFile = decodeURIComponent(currentSong.src.split("/").pop().trim());
-    let index = songs.findIndex(song => decodeURIComponent(song.trim()) === currentFile);
-
-    if (index !== -1 && index + 1 < songs.length) {
-        playMusic(songs[index + 1]);
+    if (currentIndex + 1 < songs.length) {
+        currentIndex++;
+        playMusic(songs[currentIndex]);
         play.src = "img/pause.svg";
+    }
+});
+
+//auto next 
+
+    currentSong.addEventListener("ended", () => {
+    if (currentIndex + 1 < songs.length) {
+        currentIndex++;
+        playMusic(songs[currentIndex]);
     }
 });
 
