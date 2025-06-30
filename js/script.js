@@ -84,7 +84,9 @@ async function displayAlbums() {
 
         for (const album of albums) {
             try {
-                let metadata = await fetch(`songs/${album.folder}/info.json`);
+                let folderEncoded = encodeURIComponent(album.folder);
+                let metadata = await fetch(`songs/${folderEncoded}/info.json`);
+
                 let info = await metadata.json();
 
                 cardContainer.innerHTML += `
@@ -96,7 +98,7 @@ async function displayAlbums() {
                                 stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
                         </svg>
                     </div>
-                    <img src="./songs/${album.folder}/cover.jpg" alt="">
+                   <img src="songs/${folderEncoded}/cover.jpg" alt="cover">
                     <h4>${info.title}</h4>
                     <p>${info.description}</p>
                 </div>`;
@@ -110,6 +112,7 @@ async function displayAlbums() {
             card.addEventListener("click", async (e) => {
                 let folder = e.currentTarget.dataset.folder;
                 songs = await getSongs(folder);
+
                 playMusic(songs[0]);
             });
         });
