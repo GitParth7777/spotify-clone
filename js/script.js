@@ -182,26 +182,26 @@ async function main() {
 
     //add event listener to previous button
     document.querySelector("#previous").addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        // console.log(index);
-        if ((index - 1) >= 0) {
-            playMusic(songs[index - 1])
-            play.src = "pause.svg"
+    let currentFile = decodeURIComponent(currentSong.src.split("/").pop().trim());
+    let index = songs.findIndex(song => decodeURIComponent(song.trim()) === currentFile);
 
-        }
+    if (index > 0) {
+        playMusic(songs[index - 1]);
+        play.src = "img/pause.svg";
+    }
+});
 
-    })
 
     //add event listener to next button
-    document.querySelector("#next").addEventListener("click", () => {
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-        // console.log(index);
-        if ((index + 1) < songs.length) {
-            playMusic(songs[index + 1])
-            play.src = "img/pause.svg"
-        }
+   document.querySelector("#next").addEventListener("click", () => {
+    let currentFile = decodeURIComponent(currentSong.src.split("/").pop().trim());
+    let index = songs.findIndex(song => decodeURIComponent(song.trim()) === currentFile);
 
-    })
+    if (index !== -1 && index + 1 < songs.length) {
+        playMusic(songs[index + 1]);
+        play.src = "img/pause.svg";
+    }
+});
 
     //add volumn change 
 
