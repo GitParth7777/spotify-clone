@@ -118,7 +118,7 @@ async function displayAlbums() {
 
     Array.from(document.getElementsByClassName("card")).forEach((e) => {
         e.addEventListener("click", async item => {
-            songs = await getSongs(`item.currentTarget.dataset.folder`)
+            songs = await getSongs(item.currentTarget.dataset.folder)
             playMusic(songs[0])
 
         })
