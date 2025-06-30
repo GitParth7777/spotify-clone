@@ -98,7 +98,7 @@ async function displayAlbums() {
                                 stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path>
                         </svg>
                     </div>
-                   <img src="songs/${folderEncoded}/cover.jpg" alt="cover">
+                    <img src="songs/${folderEncoded}/cover.jpg" alt="cover">
                     <h4>${info.title}</h4>
                     <p>${info.description}</p>
                 </div>`;
@@ -107,12 +107,11 @@ async function displayAlbums() {
             }
         }
 
-        // Add click handler
+        // ✅ FIX: Encode folder name before using it in getSongs
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("click", async (e) => {
-                let folder = e.currentTarget.dataset.folder;
+                let folder = encodeURIComponent(e.currentTarget.dataset.folder);
                 songs = await getSongs(folder);
-
                 playMusic(songs[0]);
             });
         });
