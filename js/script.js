@@ -99,12 +99,12 @@ async function displayAlbums() {
 
     for (let index = 0; index < array.length; index++) {
         const e = array[index];
-
+        
 
         if (e.href.includes("/songs")) {
             let folder = e.href.split("/").slice(-2)[0]
             //get metadata
-            let a = await fetch(`./${folder}/info.json`);
+            let a = await fetch(`songs/${folder}/info.json`);
             let response = await a.json();
             console.log(response)
             cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
@@ -130,7 +130,7 @@ async function displayAlbums() {
 
     Array.from(document.getElementsByClassName("card")).forEach((e) => {
         e.addEventListener("click", async item => {
-            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`)
+            songs = await getSongs(`${item.currentTarget.dataset.folder}`)
             playMusic(songs[0])
 
         })
@@ -140,7 +140,7 @@ async function displayAlbums() {
 
 async function main() {
     //get the list of songs
-    await getSongs("./songs/parth")
+    await getSongs("parth")
 
     playMusic(songs[0], true)
     //show all the songs in the playlist
